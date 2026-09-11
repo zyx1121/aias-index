@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/zyx1121/aias-index/blob/main/schema.json",
+  "title": "AI App Store index",
+  "description": "The list of published apps. One entry per app, pointing at a git repo that holds an aias.yaml.",
+  "type": "object",
+  "required": ["apps"],
+  "additionalProperties": false,
+  "properties": {
+    "apps": {
+      "type": "array",
+      "description": "Sorted by name. One entry per published app.",
+      "items": { "$ref": "#/$defs/app" }
+    }
+  },
+  "$defs": {
+    "app": {
+      "type": "object",
+      "required": ["name", "repo", "ref", "description"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Must equal the name field in the app's aias.yaml, and must be unique in this index.",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 64
+        },
+        "repo": {
+          "type": "string",
+          "description": "HTTPS git URL of the app repository. The user's machine clones it and builds locally.",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "ref": {
+          "type": "string",
+          "description": "Branch or tag to clone. A tag is recommended once the app has releases.",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "description": "One line shown in the store listing.",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "tags": {
+          "type": "array",
+          "description": "Optional, for humans searching the store.",
+          "items": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "uniqueItems": true
+        },
+        "homepage": {
+          "type": "string",
+          "description": "Optional project page, when it is not the repo itself.",
+          "format": "uri"
+        }
+      }
+    }
+  }
+}

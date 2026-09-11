@@ -1,0 +1,6 @@
+apps:
+  - name: example-chat
+    repo: https://github.com/zyx1121/aias-example-chat
+    ref: main
+    description: Chat with one local model, history in Postgres
+    tags: [chat, example]
