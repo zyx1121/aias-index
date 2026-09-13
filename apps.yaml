@@ -4,3 +4,9 @@ apps:
     ref: main
     description: Chat with one local model, history in Postgres
     tags: [chat, example]
+  - name: agent-demo
+    repo: https://github.com/zyx1121/aias-agent-demo
+    ref: main
+    description: Ask a locally served Qwen3 model a question and stream the answer back, keeping every prompt and reply in Postgres.
+    tags:
+    - example
